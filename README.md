@@ -1,5 +1,5 @@
-# retina.js 
-### JavaScript and LESS helpers for rendering high-resolution image variants
+# retina.js for Sass
+### JavaScript and SASS or LESS helpers for rendering high-resolution image variants
 
 retina.js makes it easy to serve high-resolution images to devices with retina displays
 
@@ -29,6 +29,38 @@ The JavaScript helper script automatically replaces images on your page with hig
 2. Include the script on your page (put it at the bottom of your template, before your closing \</body> tag)
 
 		<script type="text/javascript" src="/scripts/retina.js"></script> 
+
+###SASS
+The Sass mixin helps for applying high-resolution background images in your stylesheet. You provide it with an image path and the dimensions of the original-resolution image. The mixin creates a media query spefically for Retina displays, changes the background image for the selector elements to use the high-resolution (@2x) variant and applies a background-size of the original image in order to maintain proper dimensions. To use it, download the mixin, import or include it in your SASS stylesheet, and apply it to elements of your choice.
+
+*Syntax:*
+
+		@mixin at2x($image_name, $w: auto, $h: auto, $extention: '.png') 
+		
+		The extention defaults to PNG. To change this - define $extention when calling (ie jpg);
+		
+*Steps:*
+
+		1.	Add the .at2x() mixin from retina.scss to your compass stylesheet (or reference it in an @import statement)
+		2.	In your stylesheet, call the .at2x() mixin anywhere instead of using background-image 
+
+				#logo {
+				  @include at2x('example', 200px, 100px, .jpg);
+				} 
+
+		Will compile to: 
+
+				#logo {
+				  background-image: url('/images/example.jpg');
+				}
+
+				@media all and (-webkit-min-device-pixel-ratio: 1.5) {
+				  #logo {
+				    background-image: url('/images/exampe@2x.jpg');
+				    background-size: 200px 100px;
+				  }
+				}
+			
 
 
 ###LESS
